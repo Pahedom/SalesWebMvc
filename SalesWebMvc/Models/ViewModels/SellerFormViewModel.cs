@@ -12,6 +12,16 @@ namespace SalesWebMvc.Models.ViewModels
         {
         }
 
+        public SellerFormViewModel(Seller seller)
+        {
+            Seller = seller;
+        }
+
+        public SellerFormViewModel(ICollection<Department> departments)
+        {
+            Departments = departments;
+        }
+
         public SellerFormViewModel(Seller seller, ICollection<Department> departments)
         {
             Seller = seller;
