@@ -30,7 +30,25 @@ namespace SalesWebMvc.Services
                 salesRecords = salesRecords.Where(obj => obj.Date <= maxDate.Value);
             }
 
-            return await salesRecords.Include(obj => obj.Seller).Include(obj => obj.Seller.Department).OrderByDescending(obj => obj.Date).ToListAsync();
+            return await salesRecords.Include(obj => obj.Seller).Include(obj => obj.Seller.Department)
+                .OrderByDescending(obj => obj.Date).ToListAsync();
+        }
+
+        public async Task<List<IGrouping<Department, SalesRecord>>> FindByDateGroupingAsync(DateTime? minDate, DateTime? maxDate)
+        {
+            var salesRecords = _context.SalesRecord.Select(obj => obj);
+
+            if (minDate.HasValue)
+            {
+                salesRecords = salesRecords.Where(obj => obj.Date >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                salesRecords = salesRecords.Where(obj => obj.Date <= maxDate.Value);
+            }
+
+            return await salesRecords.Include(obj => obj.Seller).Include(obj => obj.Seller.Department)
+                .OrderByDescending(obj => obj.Date).GroupBy(obj => obj.Seller.Department).ToListAsync();
         }
     }
 }
