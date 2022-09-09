@@ -62,7 +62,7 @@ namespace SalesWebMvc.Models
 
         public double TotalSales(DateTime? inicial, DateTime? final)
         {
-            var sales = Sales.Where(obj => true);
+            var sales = (IEnumerable<SalesRecord>)Sales;
 
             if (inicial.HasValue)
             {
