@@ -66,11 +66,11 @@ namespace SalesWebMvc.Models
 
             if (inicial.HasValue)
             {
-                sales = Sales.Where(obj => obj.Date >= inicial);
+                sales = sales.Where(obj => obj.Date >= inicial);
             }
             if (final.HasValue)
             {
-                sales = Sales.Where(obj => obj.Date <= final);
+                sales = sales.Where(obj => obj.Date <= final);
             }
 
             return sales.Sum(sr => sr.Value);
